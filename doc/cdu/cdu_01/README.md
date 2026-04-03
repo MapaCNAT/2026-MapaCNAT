@@ -22,7 +22,7 @@
 | | 2.1 - Busca as informações do local selecionado |
 | | 2.2 - Expôe os dados de informações, imagens e descrições para o usuário visualmente |
 
-## Fluxo Alternativo I - Usuário usa sugestão de pesquisa
+## Fluxo Alternativo II - Usuário usa sugestão de pesquisa
 | Ações do ator | Ações do sistema |
 | :-----------------: |:-----------------: | 
 | 1 - Usuário acessa a barra de pesquisa | | 
