@@ -2,7 +2,7 @@
 
 - **Ator principal**: Usuário qualquer
 - **Atores secundários**: Nenhum
-- **Resumo**: O Usuário localiza um local pelo mapa
+- **Resumo**: O Usuário localiza um local pelo banner
 - **Pré-condição**: Usuário está vendo um banner
 - **Pós-Condição**: Usuário é redirecionado a outro banner
 
