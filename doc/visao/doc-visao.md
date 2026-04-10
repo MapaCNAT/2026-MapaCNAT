@@ -4,21 +4,20 @@
 
 | Data | Versão | Descrição | Autores |
 | :--: | :----: | :-------: | :-----: |
-| - | - | Versão inicial |  - |
-| - | - | - |  - |
+| 09/04 | 1.0 | Versão inicial | Gabriel Isaias - Gabriel Albino, Jennifer, Allaphy |
 
 
 ## 1. Visão Geral do Sistema Proposto
 
-Texto...
+O sistema é uma ferramenta para auxiliar usuários a navegar pelo mapa do IFRN de maneira prática e mais especializada para as necessidades geográficas quee se desenvolverem.
 
 ## 2. Descrição do Problema
 | - | - |
 | :-: | :-: |
-| **Problema** | ... |
-| **Afeta** | ... |  
-| **Impacta** | ... |
-| **Solução** | ... | 
+| **Problema** | Não há um aplicativo especializado que ajude o usuário a navegar pelo instituto de forma prática |
+| **Afeta** | Ingressantes novatos, visitantes e estudantes experientes |  
+| **Impacta** | Problemas de navegação |
+| **Solução** | Ferramenta prática e livre para facilitar a navegação através do auxílio visual | 
 
 ## 3. Descrição dos Usuários 
 
