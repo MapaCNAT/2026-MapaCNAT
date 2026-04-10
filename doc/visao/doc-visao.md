@@ -36,7 +36,7 @@ O sistema é uma ferramenta para auxiliar usuários a navegar pelo mapa do IFRN 
 ## 5. Principais Necessidades dos Usuários
 
 > Apresentadas no formato de tópicos
-1. **Usuário (comum)**
+1. **Usuário (aluno)**
    - Localizar facilmente prédios, salas e setores dentro do campus.
    - Visualizar rotas para chegar ao destino desejado
    - Pesquisar locais específicos por nome ou categoria.
