@@ -1,4 +1,4 @@
-# CNAT MAPA 2026
+# CNAT MAPA
 
 <img src="doc/logo-projeto/logo.png" width="200" height="200" />
 
