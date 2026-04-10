@@ -23,15 +23,15 @@ O sistema é uma ferramenta para auxiliar usuários a navegar pelo mapa do IFRN 
 
 | Usuário | Descrição | Responsabilidades |
 | :-----: | :-------: | :--------------: |
-| papel... | descrição... | responsabilidades... |
-| ... | ... | ... |
+| Usuário | Um usuário sem acesso especial que é o foco do sistema | Nenhuma |
+| Administrador | Um administrador com acessos especiais e capaz de gerenciar dados dentro do sistema | Inserir dados no sistema de locais específicos |
 
 ## 4. Descrição do Ambiente dos Usuários
 
 | Usuário | Ambiente operacional |
 | :-----: | :------------------: |
-| papel... | como terá acesso ao sistema... |
-| ... | ... |
+| Usuário | Tem acesso a tela do mapa contendo vários pinos de localização, podendo clicar no botão superior direito para escolher entre desabilitar ou habilitar a visibilidade. Possui uma lupa no canto superior esquerdo para pesquisar local e uma lista de filtros ao lado da lupa |
+| Administrador | Tem acesso a tela do mapa e de inserir local no mapa, contendo um formulário para inserção de nome, foto, como chegar e  descrição do local |
 
 ## 5. Principais Necessidades dos Usuários
 
