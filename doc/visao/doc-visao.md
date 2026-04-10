@@ -4,7 +4,7 @@
 
 | Data | Versão | Descrição | Autores |
 | :--: | :----: | :-------: | :-----: |
-| 09/04 | 1.0 | Versão inicial | Gabriel Isaias - Gabriel Albino, Jennifer, Allaphy |
+| 09/04 | 1.0 | Versão inicial | Gabriel Isaias - Gabriel Albino, Jenyffer, Allaphy |
 
 
 ## 1. Visão Geral do Sistema Proposto
@@ -36,12 +36,20 @@ O sistema é uma ferramenta para auxiliar usuários a navegar pelo mapa do IFRN 
 ## 5. Principais Necessidades dos Usuários
 
 > Apresentadas no formato de tópicos
-1. **Papel 1**
-   - ...
-   - ...
-1. **Papel 2**
-   - ...
-   - ...
+1. **Usuário (comum)**
+   - Localizar facilmente prédios, salas e setores dentro do campus.
+   - Visualizar rotas para chegar ao destino desejado
+   - Pesquisar locais específicos por nome ou categoria.
+   - Filtrar pontos no mapa (ex: salas, coordenações, banheiros, etc.).
+   - Ter uma interface simples, intuitiva e acessível.
+   - Acessar informações adicionais sobre os locais (descrição, foto, como chegar).
+
+1. **Administrador**
+   - Cadastrar novos locais no sistema com informações completas.
+   - Editar ou remover locais já existentes no mapa.
+   - Garantir que as informações cadastradas estejam corretas e atualizadas.
+   - Gerenciar imagens e descrições dos pontos cadastrados.
+   - Controlar a visibilidade dos locais no mapa.
 
 ## 6. Alternativas Concorrentes
 
