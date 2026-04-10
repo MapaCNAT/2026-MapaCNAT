@@ -43,15 +43,16 @@ O sistema é uma ferramenta para auxiliar usuários a navegar pelo mapa do IFRN 
    - ...
    - ...
 
-
 ## 6. Alternativas Concorrentes
 
-1. **Alternativa 1**
-   - característica 1...
-   - característica 2...
-1. **Alternativa 2**
-   - característica 1...
-   - característica 2...
+1. **Google Maps**
+   - mapa geral (cidade, ruas).
+   - completo, fácil de usar, famoso
+   - não tem detalhes do campus (salas, etc.)
+1. **OpenStreetMap**
+   - Mapa colaborativo
+   - Gratuito, pode ser bem detalhado
+   - Difícil de usar, nem sempre atualizado
 
 ## 7. Regras de Negócio
 
