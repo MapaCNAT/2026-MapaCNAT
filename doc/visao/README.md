@@ -55,19 +55,20 @@ O sistema é uma ferramenta para auxiliar usuários a navegar pelo mapa do IFRN 
 
 1. **Google Maps**
    - mapa geral (cidade, ruas).
-   - completo, fácil de usar, famoso
+   - completo, fácil de usar, famoso.
    - não tem detalhes do campus (salas, etc.)
 1. **OpenStreetMap**
-   - Mapa colaborativo
-   - Gratuito, pode ser bem detalhado
-   - Difícil de usar, nem sempre atualizado
+   - Mapa colaborativo.
+   - Gratuito, pode ser bem detalhado.
+   - Difícil de usar, nem sempre atualizado.
 
 ## 7. Regras de Negócio
 
 | ID  | Regra | Descrição |
 | :-: | :---: | :-------: |
-| RN01 | nome... | Descrição... |
-| RN02 | ... | ... |
+| RN01 | Privacidade de Dados | O app não deverá armazenar o histórico de localização do usuário |
+| RN02 | Horário de Funcionamento | O app deve informar se o instituto não possui rotas disponíveis para dada hora de uso |
+| RN03 | Acessibilidade | Para usuários com necessidades especiais, trajetórias devem priorizar rampas e elevadores |
 
 ## 8. Requisitos Funcionais
 
@@ -82,8 +83,11 @@ O sistema é uma ferramenta para auxiliar usuários a navegar pelo mapa do IFRN 
 
 | Código | Nome | Descrição | Categoria | Classificação |
 | :----: | :--: | :-------: | :-------: | :-----------: |
-| NF01 | requisito... | descrição... | categoria... | classificação... |
-| NF02 | ... | ... | ... | ... |
+| NF01 | Geração de rota | O aplicativo não deve levar mais que cinco segundos para gerar uma rota | performance | obrigatório |
+| NF02 | Obtenção de dados | O aplicativo não deve levar mais que três segundos para obter dados do local | performance | obrigatório |
+| NF03 | Usabilidade | O aplicativo deve ser intuitivo para qualquer usuário | usabilidade | desejável |
+| NF04 | confiabilidade | O aplicativo deve informar diretamente ao usuário quais dados ele irá exigir (localização atual) | obrigatório |
+| NF05 | suportabilidade | O aplicativo deverá ter suporte para Android e IOS | desejável |
 
 > **Categoria**: usabilidade, confiabilidade, performance, suportabilidade, restrição de projeto, implementação, interface e requisito físico - segundo classificação [FURP+](https://pt.wikipedia.org/wiki/FURPS).
 
