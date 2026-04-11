@@ -6,6 +6,18 @@
 
 >Inserir pequena descrição do projeto
 
+# Missão
+
+Ajudamos estudantes, visitantes e funcionários do IFRN-CNAT a navegar pela instituição de forma clara e objetiva para que minimizemos problemas de lozalização a respeito dos diversos blocos, setores, salas e laboratórios que formam o campus.
+
+# Visão
+
+> Sonho ou objetivo de longo prazo...
+
+# Valores
+
+> Princípios éticos e crenças...
+
 # Equipe e Formas de Contato
 
 1. Nome...
