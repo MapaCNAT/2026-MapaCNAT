@@ -13,7 +13,7 @@ Ajudamos estudantes, visitantes e funcionários do IFRN-CNAT a navegar pela inst
 # Visão
 
 Nossa visão é tornar nosso aplicativo a maior ferramenta de navegação intuitiva e detalhada de todos os campi.
-Planejamos expandir a ferramenta a fim de versatilizá-la para qualquer instituição ou instalação que necessite de um suporte de exploração
+Planejamos expandir a ferramenta a fim de versatilizá-la para qualquer instituição ou instalação que necessite de um suporte de exploração.
 
 # Valores
 
@@ -21,8 +21,10 @@ Nossos valores são a preservação de privacidade, livre acesso para todos os u
 
 # Equipe e Formas de Contato
 
-1. Nome...
-2. Nome...
+1. Allaphy Ricardo
+2. Gabriel Albino
+3. Gabriel Isaias
+4. Jenyffer Danily
 
 > Descrever as formas de contato da equipe - WhatsApp, Discord, etc.
 
