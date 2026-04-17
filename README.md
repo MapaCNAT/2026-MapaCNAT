@@ -12,11 +12,12 @@ Ajudamos estudantes, visitantes e funcionários do IFRN-CNAT a navegar pela inst
 
 # Visão
 
-> Sonho ou objetivo de longo prazo...
+Nossa visão é tornar nosso aplicativo a maior ferramenta de navegação intuitiva e detalhada de todos os campi.
+Planejamos expandir a ferramenta a fim de versatilizá-la para qualquer instituição ou instalação que necessite de um suporte de exploração
 
 # Valores
 
-> Princípios éticos e crenças...
+Nossos valores são a preservação de privacidade, livre acesso para todos os usuários e acessibilidade interna. 
 
 # Equipe e Formas de Contato
 
