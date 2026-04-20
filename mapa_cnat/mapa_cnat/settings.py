@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-tk&-i3kn-^kzy0^ka)bvbq^m_bd^4922y+w+u0v8tqt#_0mr!2
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['pdsweb.pythonanywhere.com']
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -49,7 +49,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'mysite.urls'
+ROOT_URLCONF = 'mapa_cnat.urls'
 
 TEMPLATES = [
     {
@@ -67,7 +67,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'mysite.wsgi.application'
+WSGI_APPLICATION = 'mapa_cnat.wsgi.application'
 
 
 # Database
@@ -124,7 +124,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # default static files settings for PythonAnywhere.
 # see https://help.pythonanywhere.com/pages/DjangoStaticFiles for more info
-MEDIA_ROOT = '/home/pdsweb/mysite/media'
+MEDIA_ROOT = '/home/pdsweb/mapa_cnat/media'
 MEDIA_URL = '/media/'
-STATIC_ROOT = '/home/pdsweb/mysite/static'
+STATIC_ROOT = '/home/pdsweb/mapa_cnat/static'
 STATIC_URL = '/static/'
