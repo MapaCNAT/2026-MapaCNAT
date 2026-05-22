@@ -9,8 +9,8 @@
 ## Fluxo Principal
 | Ações do ator | Ações do sistema |
 | :-----------------: | :-----------------: | 
-| | 2.1 - Obtêm as coordenadas do redirecionamento | 
-| | 2.2 - Relocaliza o usuário dentro do mapa para as coordenadas obtidas | 
+| | 1.1 - Obtêm as coordenadas do redirecionamento | 
+| | 1.2 - Relocaliza o usuário dentro do mapa para as coordenadas obtidas | 
 
 > Obs. as seções a seguir apenas serão utilizadas na segunda unidade do PDSWeb (segundo orientações do gerente do projeto).
 

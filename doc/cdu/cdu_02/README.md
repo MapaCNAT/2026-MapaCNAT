@@ -1,4 +1,4 @@
-# CDU001. Uso de Sugestões do Banner
+# CDU002. Uso de Sugestões do Banner
 
 - **Ator principal**: Usuário qualquer
 - **Atores secundários**: Nenhum
