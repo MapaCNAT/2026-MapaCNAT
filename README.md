@@ -17,10 +17,10 @@ Nossos valores são a preservação de privacidade, livre acesso para todos os u
 
 # Equipe e Formas de Contato
 
-1. Allaphy Ricardo
-2. Gabriel Albino
-3. Gabriel Isaias
-4. Jenyffer Danily
+1. Allaphy Ricardo - allaphy.ricardo@academico.ifrn.edu.br
+2. Gabriel Albino - g.albino@academico.ifrn.edu.br
+3. Gabriel Isaias - g.isaias@academico.ifrn.edu.br
+4. Jenyffer Danily - jenyffer.d@academico.ifrn.edu.br
 
 #**Formas de contato**
 
