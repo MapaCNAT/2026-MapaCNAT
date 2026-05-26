@@ -17,20 +17,26 @@
 ## Fluxo Alternativo I - Usuário pesquisa pelo lugar
 | Ações do ator | Ações do sistema |
 | :-----------------: |:-----------------: | 
-| 1 - Usuário acessa a barra de pesquisa | |  
-| 1.1 - Insere o nome de um lugar | |  
+| 1.1 - Usuário acessa a barra de pesquisa | |  
+| 1.2 - Insere o nome de um lugar | |  
 | | 2.1 - Busca as informações do local selecionado |
 | | 2.2 - Expôe os dados de informações, imagens e descrições para o usuário visualmente |
 
 ## Fluxo Alternativo II - Usuário usa sugestão de pesquisa
 | Ações do ator | Ações do sistema |
 | :-----------------: |:-----------------: | 
-| 1 - Usuário acessa a barra de pesquisa | | 
-| 1.1 - Insere o nome de um lugar | |  
-| | 2.1 - Sugere lugares relacionados |
-| 3 - Usuário seleciona uma das sugestões de lugar | |
-| | 3.1 - Busca os dados do lugar | 
-| | 3.2 - Expôe os dados de informações, imagens e descrições para o usuário visualmente |
+| 1.1 - Usuário acessa a barra de pesquisa | | 
+| 1.2 - Insere o nome de um lugar | |  
+| | 2 - Sugere lugares relacionados |
+| 3.1 - Usuário seleciona uma das sugestões de lugar | |
+| | 3.2 - Busca os dados do lugar | 
+| | 3.3 - Expôe os dados de informações, imagens e descrições para o usuário visualmente |
+
+## Fluxo de Exceção - Se der erro
+| Ações do ator | Ações do sistema |
+| :-----------------: |:-----------------: | 
+| 1 - Digita um local que não existe | | 
+| | 2 - Informa que o local não foi encontrado e sugere verificar a escrita |
 
 > Obs. as seções a seguir apenas serão utilizadas na segunda unidade do PDSWeb (segundo orientações do gerente do projeto).
 

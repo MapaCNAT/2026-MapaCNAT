@@ -10,10 +10,13 @@
 
 ![Substitua pela imagem do diagrama...](imgs/diagrama_cdu.png)
 
-[LINK para o arquivo Astah com o modelo](/doc/arquivo_astah/mapa_cnat.asta)
+[LINK para o arquivo Astah com o modelo](/doc/arquivo_astah/mapa_cnat_cdu.asta)
 
 ## 2. Listagem dos Detalhamentos dos Casos de Uso
 
 1. [CDU 01 - Uso do Mapa](cdu_01/README.md)
 2. [CDU 02 - Uso de Sugestões do Banner](cdu_02/README.md)
-2. [CDU 03 - Exploração do Mapa](cdu_03/README.md)
+3. [CDU 03 - Exploração do Mapa](cdu_03/README.md)
+4. [CDU 04 - Uso do Mapa](cdu_04/README.md)
+5. [CDU 05 - Uso de Sugestões do Banner](cdu_05/README.md)
+6. [CDU 06 - Exploração do Mapa](cdu_06/README.md)

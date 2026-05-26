@@ -2,10 +2,6 @@
 
 <img src="doc/logo-projeto/logo.png" width="200" height="200" />
 
->Inserir uma logo para o projeto
-
->Inserir pequena descrição do projeto
-
 # Missão
 
 Ajudamos estudantes, visitantes e funcionários do IFRN-CNAT a navegar pela instituição de forma clara e objetiva para que minimizemos problemas de lozalização a respeito dos diversos blocos, setores, salas e laboratórios que formam o campus.
@@ -21,29 +17,26 @@ Nossos valores são a preservação de privacidade, livre acesso para todos os u
 
 # Equipe e Formas de Contato
 
-1. Allaphy Ricardo
-2. Gabriel Albino
-3. Gabriel Isaias
-4. Jenyffer Danily
+1. Allaphy Ricardo - allaphy.ricardo@academico.ifrn.edu.br
+2. Gabriel Albino - g.albino@academico.ifrn.edu.br
+3. Gabriel Isaias - g.isaias@academico.ifrn.edu.br
+4. Jenyffer Danily - jenyffer.d@academico.ifrn.edu.br
 
-> Descrever as formas de contato da equipe - WhatsApp, Discord, etc.
+#**Formas de contato**
+
+Durante a semana normalmente utilizamos de um grupo do Whatsapp por questão de praticidade. Além do Discord para manter a comunicação com o orientador responsável sobre tarefas e suas divisões entre os componentes.
 
 # Reuniões Semanais da Equipe
 
-1. Reunião com o orientaor OU reservada para apresentações - **"dia da semana", às "horário" no "local"**.
-
-> Descrever dias, horários e local das demais reuniões da equipe
-
-> [!TIP]
-> Obs.: é fortemente recomendado que todas as reuniões da equipe sejam registradas na forma de tarefas (*issues*), contendo essencialmente informações como: presentes, temas discutidos e os encaminhamentos. Essas tarefas devem ser marcadas com o label correspondente.
+1. Reuniões com o orientador OU reservada para apresentações - **Sexta, às 9 - 10:30 no laboratório 05 da diatinf**.
 
 # Documentação
 
 Clique em cada um dos links abaixo para acessar o artefato específico.
 
-1. [Documento de Visão](doc/visao/doc-visao.md)
+1. [Documento de Visão](doc/visao/README.md)
 1. [Protótipos de Interface com o Usuário](doc/prototipos/prototipos.md)
-1. [Modelo de Casos de Uso](doc/cdu/cdu.md)
+1. [Modelo de Casos de Uso](doc/cdu/README.md)
 1. [Modelo de Domínio](doc/dominio/dominio.md)
 1. [Modelo de Dados](doc/bd/bd.md)
 

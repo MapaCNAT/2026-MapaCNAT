@@ -1,4 +1,4 @@
-# CDU001. Pinar lugar
+# CDU004. Pinar lugar
 
 - **Ator principal**: Usuário qualquer
 - **Atores secundários**: Nenhum
@@ -16,9 +16,9 @@
 ## Fluxo Alternativo I - Pinar por pesquisa
 | Ações do ator | Ações do sistema |
 | :-----------------: |:-----------------: | 
-| 1 - Usuário acessa a barra de pesquisa | | 
-| 1.1 - Insere o nome de um lugar | |  
-| 1.2 - Seleciona um local | |  
+| 1.1 - Usuário acessa a barra de pesquisa | | 
+| 1.2 - Insere o nome de um lugar | |  
+| 1.3 - Seleciona um local | |  
 | | 2.1 - Obtêm as coordendas do local |
 | | 2.2 - Atualiza a visualização do mapa para o usuário ver o pino |
 
