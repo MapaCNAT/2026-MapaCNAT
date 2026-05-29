@@ -10,11 +10,13 @@
 
 1. Usuário aperta no lugar da tela em que está o local que deseja conhecer
 
+![tela do mapa](./cenario-uso-do-mapa.png)
 
-| Ações do ator | Ações do sistema |
-| :-----------------: | :-----------------: | 
-| 1 - Usuário aperta no lugar da tela em que está o local que deseja conhecer | |  
-| | 2.1 - Registrar o local de aperto relativo ao mapa | 
-| | 2.2 - Busca as informações do local selecionado | 
-| | 2.3 - Expôe os dados de informações, imagens e descrições para o usuário visualmente | 
+
+2. Sistema
+   1. Registrar o local de aperto relativo ao mapa
+      - Django obtêm as coordenadas do ponto de toque tanto no espaço da projeção.
+   2. Busca as informações do local selecionado
+      - O django
+   3. Expôe os dados de informações, imagens e descrições para o usuário visualmente | 
 
