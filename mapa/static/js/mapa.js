@@ -40,6 +40,7 @@ await app.init({
     resizeTo: window,
     background: "#202020"
 });
+let gl = app.renderer.gl;
 
 const map = document.getElementById("map");
 map.appendChild(app.canvas);
@@ -49,9 +50,18 @@ const sprite = Sprite.from(texture);
 sprite.anchor.set(0.5);
 app.stage.addChild(sprite);
 
-function multipleOf2(x) {
+function ceilPowerOf2(x) {
     if (x <= 0) return 1;
     return Math.pow(2, Math.ceil(Math.log2(x)));
+}
+
+function floorPowerOf2(x) {
+    if (x <= 0) return 1;
+    return Math.pow(2, Math.floor(Math.log2(x)));
+}
+
+function getScaleFactor() {
+    return Math.min(floorPowerOf2(maxRenderZoom), Math.max(minZoom, multipleZoom * window.devicePixelRatio))
 }
 
 function rotatePoint(x, y, angle) {
@@ -85,21 +95,29 @@ function angle(a, b) {
 }
 
 async function updateMapTexture() {
-    const svgText = await fetch("../static/svg/mapa.svg")
-        .then(r => r.text());
+    const svgText = await fetch("../static/svg/mapa.svg").then(r => r.text());
 
-    const blob = new Blob(
+    const mapBlob = new Blob(
         [svgText],
         { type: "image/svg+xml" }
     );
 
-    const url = URL.createObjectURL(blob);
+    const mapUrl = URL.createObjectURL(mapBlob);
 
     const img = new Image();
 
     img.onload = () => {
-        let multipleZoom = multipleOf2(zoom);
-        scaleFactor = Math.min(maxZoom, Math.max(minZoom, multipleZoom * window.devicePixelRatio));
+        const longestSide = Math.max(img.width, img.height);
+        const maxRenderZoom = gl.getParameter(gl.MAX_TEXTURE_SIZE) / longestSide;
+        let multipleZoom = ceilPowerOf2(zoom);
+        let currentFactor = Math.min(floorPowerOf2(maxRenderZoom), Math.max(minZoom, multipleZoom * window.devicePixelRatio));
+
+        if (currentFactor === scaleFactor) {
+            URL.revokeObjectURL(mapUrl);
+            return;
+        }
+
+        scaleFactor = currentFactor;
 
         const canvas = document.createElement("canvas");
         canvas.width = img.width * scaleFactor;
@@ -119,10 +137,10 @@ async function updateMapTexture() {
 
         sprite.scale.set(zoom / scaleFactor);
 
-        URL.revokeObjectURL(url);
+        URL.revokeObjectURL(mapUrl);
     };
 
-    img.src = url;
+    img.src = mapUrl;
 }
 
 map.addEventListener("touchstart", e => {
@@ -173,6 +191,9 @@ map.addEventListener("touchmove", e => {
         const currentAngle = angle(a, b);
 
         zoom = startZoom * (currentDistance / startDistance);
+
+        zoom = Math.min(Math.max(zoom, minZoom), maxZoom);
+
         sprite.scale.set(zoom / scaleFactor);
 
         const deltaAngle = currentAngle - startAngle;
@@ -237,12 +258,6 @@ async function updateMap() {
         return;
     }
     updating = true;
-
-    let currentFactor = Math.min(maxZoom, Math.max(minZoom, multipleOf2(zoom) * window.devicePixelRatio));
-
-    if (currentFactor !== scaleFactor) {
-        await updateMapTexture();
-    }
+    await updateMapTexture();
     updating = false;
 }
-
