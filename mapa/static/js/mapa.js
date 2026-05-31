@@ -1,3 +1,93 @@
+class ParallelogramTransform {
+    constructor(A1, B1, C1, A2, B2, C2) {
+        const M1 = [
+            [B1[0] - A1[0], C1[0] - A1[0]],
+            [B1[1] - A1[1], C1[1] - A1[1]]
+        ];
+
+        const M2 = [
+            [B2[0] - A2[0], C2[0] - A2[0]],
+            [B2[1] - A2[1], C2[1] - A2[1]]
+        ];
+
+        const M1inv = invert2x2(M1);
+
+        this.A = multiply2x2(M2, M1inv);
+
+        const AA1 = multiplyMatVec(this.A, A1);
+
+        this.b = [
+            A2[0] - AA1[0],
+            A2[1] - AA1[1]
+        ];
+    }
+
+    transform(point) {
+        const p = multiplyMatVec(this.A, point);
+
+        return [
+            p[0] + this.b[0],
+            p[1] + this.b[1]
+        ];
+    }
+}
+
+function invert2x2(m) {
+    const det = m[0][0] * m[1][1] - m[0][1] * m[1][0];
+
+    if (Math.abs(det) < 1e-12) {
+        throw new Error("Degenerate parallelogram");
+    }
+
+    return [
+        [ m[1][1] / det, -m[0][1] / det ],
+        [ -m[1][0] / det, m[0][0] / det ]
+    ];
+}
+function multiply2x2(a, b) {
+    return [
+        [
+            a[0][0] * b[0][0] + a[0][1] * b[1][0],
+            a[0][0] * b[0][1] + a[0][1] * b[1][1]
+        ],
+        [
+            a[1][0] * b[0][0] + a[1][1] * b[1][0],
+            a[1][0] * b[0][1] + a[1][1] * b[1][1]
+        ]
+    ];
+}
+function multiplyMatVec(m, v) {
+    return [
+        m[0][0] * v[0] + m[0][1] * v[1],
+        m[1][0] * v[0] + m[1][1] * v[1]
+    ];
+}
+
+function getUserLocation() {
+    console.log("Attempting to get user location...");
+    if (!navigator.geolocation) {
+        console.error("Geolocation is not supported by your browser.");
+        return;
+    }
+
+    const successCallback = (position) => {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+
+        pinoSprite.visible = true;
+        const [x, y] = coordinateTransform.transform([latitude, longitude]);
+        pinoSprite.x = x;
+        pinoSprite.y = y;
+    };
+    
+    const errorCallback = (error) => {
+        pinoSprite.visible = false;
+        console.error(`Error (${error.code}): ${error.message}`);
+    };
+
+    navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+}
+
 let clicking = false;
 let touching = false;
 let updating = false;
@@ -5,7 +95,7 @@ let updating = false;
 let zoom = 1;
 let scaleFactor = 1;
 
-const minZoom = 0.125;
+const minZoom = 1 / 8;
 const maxZoom = 4;
 const zoomStep = 1.1;
 
@@ -43,6 +133,14 @@ mapSprite.x = 0;
 mapSprite.y = 0;
 mapContainer.addChild(mapSprite);
 
+const pinoTexture = await PIXI.Assets.load("../static/img/pino.png");
+const pinoSprite = PIXI.Sprite.from(pinoTexture);
+pinoSprite.anchor.set(0.5, 1);
+pinoSprite.visible = false;
+pinoSprite.x = 0;
+pinoSprite.y = 0;
+mapContainer.addChild(pinoSprite);
+
 const texts = new PIXI.Container();
 mapContainer.addChild(texts);
 
@@ -65,6 +163,18 @@ function nodeText(text, coordinates) {
     texts.addChild(nodeLabel);
 }
 
+const coordinateTransform = new ParallelogramTransform(
+    [-5.811105868698768, -35.201445594283136],
+    [-5.810082771429163, -35.204026579227964],
+    [-5.812708592957059, -35.20497480931187],
+
+    [-mapSprite.width / 2, -mapSprite.height / 2],
+    [-mapSprite.width / 2, mapSprite.height / 2],
+    [mapSprite.width / 2, mapSprite.height / 2]
+);
+
+setTimeout(getUserLocation, 10000);
+
 nodeText("Rosquinhas", { x: -474, y: 14 });
 nodeText("Campo", { x: 533.390219080226, y: -579.5920817634556 });
 nodeText("DIAC", { x: -1175.9397318446595, y: -795.5558121222449 });
@@ -78,12 +188,11 @@ nodeText("Estacionamento", { x: 912.0452730260521, y: 265.14784171897253 });
 nodeText("Tapete Vermelho", { x: 414.518310225052, y: 76.51202643897255 });
 nodeText("EAD", { x: -409.80350667160724, y: 723.3748203899776 });
 nodeText("Quadras", { x: -463.9213292557074, y: 978.6351474457774 });
-
-
 nodeText("Ginásio", { x: -449.08308058680564, y: 318.863800141916 });
 nodeText("Museu de Minérios", { x: 241.0277153119756, y: 883.7653428830032 });
 nodeText("Mesas Verdes", { x: -899.8535257034722, y: 217.22081863872342 });
 nodeText("Refeitório", { x: -1222.5949485051249, y: 461.2633919197148 });
+
 function ceilPowerOf2(x) { return x <= 0 ? 1 : Math.pow(2, Math.ceil(Math.log2(x))); }
 function floorPowerOf2(x) { return x <= 0 ? 1 : Math.pow(2, Math.floor(Math.log2(x))); }
 
@@ -115,12 +224,14 @@ function setPosition(x, y) {
 }
 function setZoom(z) {
     mapContainer.scale.set(z);
+    pinoSprite.scale.set(1 / z / 7.5);
     for (const child of texts.children) {
         child.scale.set(1 / z / 2);
     }
 }
 function setRotation(r) {
     mapContainer.rotation = r;
+    pinoSprite.rotation = -r;
     for (const child of texts.children) {
         child.rotation = -r;
     }
