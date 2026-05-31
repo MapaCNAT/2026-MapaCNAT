@@ -38,7 +38,8 @@ let startOffsetY;
 const app = new Application();
 await app.init({
     resizeTo: window,
-    background: "#202020"
+    background: "#202020",
+    resolution: window.devicePixelRatio || 1,
 });
 let gl = app.renderer.gl;
 
