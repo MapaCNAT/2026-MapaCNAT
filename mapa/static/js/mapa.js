@@ -1,29 +1,27 @@
 import { Application, Sprite, Assets, Texture } from "https://cdn.jsdelivr.net/npm/pixi.js@8/+esm";
 
-let clickX;
-let clickY;
-let zoom = 1;
 let clicking = false;
+let touching = false;
 let updating = false;
+
+let zoom = 1;
 let scaleFactor = 1;
+
 const minZoom = 0.125;
 const maxZoom = 4;
 const zoomStep = 1.1;
+
 let spriteStartX;
 let spriteStartY;
 
-let mouseX = 0;
-let mouseY = 0;
+let clickX;
+let clickY;
 
-let pivotX = 0;
-let pivotY = 0;
-let pivotA = 0;
-let pivotLocalX;
-let pivotLocalY;
-let clickPointerAngle;
-let clickZoom = 1;
+let mouseX;
+let mouseY;
 
-let touching = false;
+let touchX;
+let touchY;
 
 let startMidX;
 let startMidY;
@@ -51,7 +49,7 @@ const sprite = Sprite.from(texture);
 sprite.anchor.set(0.5);
 app.stage.addChild(sprite);
 
-function closestPowerOf2(x) {
+function multipleOf2(x) {
     if (x <= 0) return 1;
     return Math.pow(2, Math.ceil(Math.log2(x)));
 }
@@ -100,7 +98,7 @@ async function updateMapTexture() {
     const img = new Image();
 
     img.onload = () => {
-        let multipleZoom = closestPowerOf2(zoom);
+        let multipleZoom = multipleOf2(zoom);
         scaleFactor = Math.min(maxZoom, Math.max(minZoom, multipleZoom * window.devicePixelRatio));
 
         const canvas = document.createElement("canvas");
@@ -128,60 +126,66 @@ async function updateMapTexture() {
 }
 
 map.addEventListener("touchstart", e => {
-    if (e.touches.length !== 2) return;
-
     touching = true;
 
-    const a = e.touches[0];
-    const b = e.touches[1];
+    if (e.touches.length == 1) {
+        const touch = e.touches[0];
 
-    const mid = midpoint(a, b);
+        touchX = touch.clientX;
+        touchY = touch.clientY;
 
-    startMidX = mid.x;
-    startMidY = mid.y;
+        spriteStartX = sprite.x;
+        spriteStartY = sprite.y;
+    }
+    if (e.touches.length == 2) {
+        const a = e.touches[0];
+        const b = e.touches[1];
 
-    startDistance = distance(a, b);
-    startAngle = angle(a, b);
+        const mid = midpoint(a, b);
 
-    startZoom = zoom;
-    startRotation = sprite.rotation;
+        startMidX = mid.x;
+        startMidY = mid.y;
 
-    startOffsetX = (sprite.x - startMidX) / zoom;
+        startDistance = distance(a, b);
+        startAngle = angle(a, b);
 
-    startOffsetY = (sprite.y - startMidY) / zoom;
+        startZoom = zoom;
+        startRotation = sprite.rotation;
+
+        startOffsetX = (sprite.x - startMidX) / zoom;
+
+        startOffsetY = (sprite.y - startMidY) / zoom;
+    }
 });
 map.addEventListener("touchmove", e => {
     if (!touching) return;
-    if (e.touches.length !== 2) return;
+    if (e.touches.length == 1) {
+        let touch = e.touches[0];
+        sprite.x = spriteStartX + (touch.clientX - touchX);
+        sprite.y = spriteStartY + (touch.clientY - touchY);
+    }
+    if (e.touches.length == 2) {
+        const a = e.touches[0];
+        const b = e.touches[1];
 
-    const a = e.touches[0];
-    const b = e.touches[1];
+        const mid = midpoint(a, b);
+        const currentDistance = distance(a, b);
+        const currentAngle = angle(a, b);
 
-    const mid = midpoint(a, b);
+        zoom = startZoom * (currentDistance / startDistance);
+        sprite.scale.set(zoom / scaleFactor);
 
-    const currentDistance = distance(a, b);
-
-    const currentAngle = angle(a, b);
-
-    zoom = startZoom * (currentDistance / startDistance);
-
-    sprite.scale.set(
-        zoom / scaleFactor
-    );
-
-    const deltaAngle = currentAngle - startAngle;
-
-    sprite.rotation = startRotation + deltaAngle;
-
-    const rotated = rotatePoint(
+        const deltaAngle = currentAngle - startAngle;
+        sprite.rotation = startRotation + deltaAngle;
+        const rotated = rotatePoint(
             startOffsetX,
             startOffsetY,
             deltaAngle
         );
 
-    sprite.x = mid.x + rotated.x * zoom;
-
-    sprite.y = mid.y + rotated.y * zoom;
+        sprite.x = mid.x + rotated.x * zoom;
+        sprite.y = mid.y + rotated.y * zoom;
+    }
 });
 map.addEventListener("touchend", () => {
     touching = false;
@@ -209,13 +213,6 @@ map.addEventListener("pointermove", (e) => {
     sprite.y = spriteStartY + (mouseY - clickY);
 });
 
-window.addEventListener("keydown", (e) => {
-    if (e.key === "r") {
-        pivotX = mouseX;
-        pivotY = mouseY;
-    }
-});
-
 map.addEventListener("wheel", (e) => {
     e.preventDefault();
 
@@ -232,17 +229,20 @@ map.addEventListener("wheel", (e) => {
     zoom *= zoomFactor;
     sprite.scale.set(zoom / scaleFactor);
 });
-map.addEventListener("wheel", async(e) => {
+map.addEventListener("wheel", updateMap);
+map.addEventListener("touchend", updateMap);
+
+async function updateMap() {
     if (updating) {
         return;
     }
     updating = true;
 
-    let currentFactor = Math.min(maxZoom, Math.max(minZoom, closestPowerOf2(zoom) * window.devicePixelRatio));
+    let currentFactor = Math.min(maxZoom, Math.max(minZoom, multipleOf2(zoom) * window.devicePixelRatio));
 
     if (currentFactor !== scaleFactor) {
         await updateMapTexture();
     }
     updating = false;
-});
+}
 
