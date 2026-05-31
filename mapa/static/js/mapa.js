@@ -1,0 +1,248 @@
+import { Application, Sprite, Assets, Texture } from "https://cdn.jsdelivr.net/npm/pixi.js@8/+esm";
+
+let clickX;
+let clickY;
+let zoom = 1;
+let clicking = false;
+let updating = false;
+let scaleFactor = 1;
+const minZoom = 0.125;
+const maxZoom = 4;
+const zoomStep = 1.1;
+let spriteStartX;
+let spriteStartY;
+
+let mouseX = 0;
+let mouseY = 0;
+
+let pivotX = 0;
+let pivotY = 0;
+let pivotA = 0;
+let pivotLocalX;
+let pivotLocalY;
+let clickPointerAngle;
+let clickZoom = 1;
+
+let touching = false;
+
+let startMidX;
+let startMidY;
+
+let startDistance;
+let startAngle;
+
+let startZoom;
+let startRotation;
+
+let startOffsetX;
+let startOffsetY;
+
+const app = new Application();
+await app.init({
+    resizeTo: window,
+    background: "#202020"
+});
+
+const map = document.getElementById("map");
+map.appendChild(app.canvas);
+
+const texture = await Assets.load("../static/svg/mapa.svg");
+const sprite = Sprite.from(texture);
+sprite.anchor.set(0.5);
+app.stage.addChild(sprite);
+
+function closestPowerOf2(x) {
+    if (x <= 0) return 1;
+    return Math.pow(2, Math.ceil(Math.log2(x)));
+}
+
+function rotatePoint(x, y, angle) {
+    const cosA = Math.cos(angle);
+    const sinA = Math.sin(angle);
+    return {
+        x: x * cosA - y * sinA,
+        y: x * sinA + y * cosA
+    };
+}
+
+function midpoint(a, b) {
+    return {
+        x: (a.clientX + b.clientX) / 2,
+        y: (a.clientY + b.clientY) / 2
+    };
+}
+
+function distance(a, b) {
+    return Math.hypot(
+        b.clientX - a.clientX,
+        b.clientY - a.clientY
+    );
+}
+
+function angle(a, b) {
+    return Math.atan2(
+        b.clientY - a.clientY,
+        b.clientX - a.clientX
+    );
+}
+
+async function updateMapTexture() {
+    const svgText = await fetch("../static/svg/mapa.svg")
+        .then(r => r.text());
+
+    const blob = new Blob(
+        [svgText],
+        { type: "image/svg+xml" }
+    );
+
+    const url = URL.createObjectURL(blob);
+
+    const img = new Image();
+
+    img.onload = () => {
+        let multipleZoom = closestPowerOf2(zoom);
+        scaleFactor = Math.min(maxZoom, Math.max(minZoom, multipleZoom * window.devicePixelRatio));
+
+        const canvas = document.createElement("canvas");
+        canvas.width = img.width * scaleFactor;
+        canvas.height = img.height * scaleFactor;
+
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(
+            img,
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
+
+        const texture = Texture.from(canvas);
+        sprite.texture = texture;
+
+        sprite.scale.set(zoom / scaleFactor);
+
+        URL.revokeObjectURL(url);
+    };
+
+    img.src = url;
+}
+
+map.addEventListener("touchstart", e => {
+    if (e.touches.length !== 2) return;
+
+    touching = true;
+
+    const a = e.touches[0];
+    const b = e.touches[1];
+
+    const mid = midpoint(a, b);
+
+    startMidX = mid.x;
+    startMidY = mid.y;
+
+    startDistance = distance(a, b);
+    startAngle = angle(a, b);
+
+    startZoom = zoom;
+    startRotation = sprite.rotation;
+
+    startOffsetX = (sprite.x - startMidX) / zoom;
+
+    startOffsetY = (sprite.y - startMidY) / zoom;
+});
+map.addEventListener("touchmove", e => {
+    if (!touching) return;
+    if (e.touches.length !== 2) return;
+
+    const a = e.touches[0];
+    const b = e.touches[1];
+
+    const mid = midpoint(a, b);
+
+    const currentDistance = distance(a, b);
+
+    const currentAngle = angle(a, b);
+
+    zoom = startZoom * (currentDistance / startDistance);
+
+    sprite.scale.set(
+        zoom / scaleFactor
+    );
+
+    const deltaAngle = currentAngle - startAngle;
+
+    sprite.rotation = startRotation + deltaAngle;
+
+    const rotated = rotatePoint(
+            startOffsetX,
+            startOffsetY,
+            deltaAngle
+        );
+
+    sprite.x = mid.x + rotated.x * zoom;
+
+    sprite.y = mid.y + rotated.y * zoom;
+});
+map.addEventListener("touchend", () => {
+    touching = false;
+});
+
+map.addEventListener("pointerdown", (e) => {
+    clickX = e.clientX;
+    clickY = e.clientY;
+
+    spriteStartX = sprite.x;
+    spriteStartY = sprite.y;
+
+    clicking = true;
+});
+map.addEventListener("pointerup", (e) => {
+    clicking = false;
+});
+map.addEventListener("pointermove", (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+
+    if (!clicking) return;
+
+    sprite.x = spriteStartX + (mouseX - clickX);
+    sprite.y = spriteStartY + (mouseY - clickY);
+});
+
+window.addEventListener("keydown", (e) => {
+    if (e.key === "r") {
+        pivotX = mouseX;
+        pivotY = mouseY;
+    }
+});
+
+map.addEventListener("wheel", (e) => {
+    e.preventDefault();
+
+    const mouseX = e.offsetX;
+    const mouseY = e.offsetY;
+
+    let zoomFactor = e.deltaY < 0 ? zoomStep : 1 / zoomStep;
+
+    zoomFactor = Math.min(Math.max(zoom * zoomFactor, minZoom), maxZoom) / zoom;
+
+    sprite.position.x = mouseX - (mouseX - sprite.position.x) * zoomFactor;
+    sprite.position.y = mouseY - (mouseY - sprite.position.y) * zoomFactor;
+
+    zoom *= zoomFactor;
+    sprite.scale.set(zoom / scaleFactor);
+});
+map.addEventListener("wheel", async(e) => {
+    if (updating) {
+        return;
+    }
+    updating = true;
+
+    let currentFactor = Math.min(maxZoom, Math.max(minZoom, closestPowerOf2(zoom) * window.devicePixelRatio));
+
+    if (currentFactor !== scaleFactor) {
+        await updateMapTexture();
+    }
+    updating = false;
+});
+
