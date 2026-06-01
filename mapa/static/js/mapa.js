@@ -173,7 +173,7 @@ const coordinateTransform = new ParallelogramTransform(
     [mapSprite.width / 2, mapSprite.height / 2]
 );
 
-setTimeout(getUserLocation, 10000);
+setTimeout(getUserLocation, 100);
 
 nodeText("Rosquinhas", { x: -474, y: 14 });
 nodeText("Campo", { x: 533.390219080226, y: -579.5920817634556 });
