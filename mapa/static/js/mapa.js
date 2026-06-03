@@ -90,7 +90,7 @@ function getUserLocation() {
         console.error("Geolocation is not supported by your browser.");
         return;
     }
-    watchPosition(success, error, options);
+    navigator.geolocation.watchPosition(success, error, options);
 }
 
 let clicking = false;
