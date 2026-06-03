@@ -1,19 +1,3 @@
-let consoleHistoryText = "a";
-
-// 2. Intercept the native console.log method
-const originalLog = console.log;
-console.log = function(...args) {
-    // Keep standard console behavior
-    originalLog.apply(console, args); 
-    
-    // Format and append the data as text
-    const message = args.map(arg => 
-        typeof arg === 'object' ? JSON.stringify(arg) : arg
-    ).join(" ");
-    
-    consoleHistoryText += message + "\n";
-};
-
 class ParallelogramTransform {
     constructor(A1, B1, C1, A2, B2, C2) {
         const M1 = [
@@ -214,8 +198,7 @@ nodeText("Ginásio", { x: -449.08308058680564, y: 318.863800141916 });
 nodeText("Museu de Minérios", { x: 241.0277153119756, y: 883.7653428830032 });
 nodeText("Mesas Verdes", { x: -899.8535257034722, y: 217.22081863872342 });
 nodeText("Refeitório", { x: -1222.5949485051249, y: 461.2633919197148 });
-let k = nodeText("", {x:0,y:0});
-setInterval(()=>{k.text = consoleHistoryText}, 100);
+
 function ceilPowerOf2(x) { return x <= 0 ? 1 : Math.pow(2, Math.ceil(Math.log2(x))); }
 function floorPowerOf2(x) { return x <= 0 ? 1 : Math.pow(2, Math.floor(Math.log2(x))); }
 
