@@ -63,29 +63,34 @@ function multiplyMatVec(m, v) {
     ];
 }
 
+function success(position) {
+  const latitude = position.coords.latitude;
+  const longitude = position.coords.longitude;
+  const accuracy = position.coords.accuracy;
+  pinoSprite.visible = true;
+  const [x, y] = coordinateTransform.transform([latitude, longitude]);
+  pinoSprite.x = x;
+  pinoSprite.y = y;
+}
+
+function error(err) {
+  pinoSprite.visible = true;
+  console.warn(`ERROR (${err.code}): ${err.message}`);
+}
+
+const options = {
+  enableHighAccuracy: true,
+  timeout: 5000,
+  maximumAge: 0
+};
+
 function getUserLocation() {
     console.log("Attempting to get user location...");
     if (!navigator.geolocation) {
         console.error("Geolocation is not supported by your browser.");
         return;
     }
-
-    const successCallback = (position) => {
-        const latitude = position.coords.latitude;
-        const longitude = position.coords.longitude;
-
-        pinoSprite.visible = true;
-        const [x, y] = coordinateTransform.transform([latitude, longitude]);
-        pinoSprite.x = x;
-        pinoSprite.y = y;
-    };
-    
-    const errorCallback = (error) => {
-        pinoSprite.visible = false;
-        console.error(`Error (${error.code}): ${error.message}`);
-    };
-
-    navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+    watchPosition(success, error, options);
 }
 
 let clicking = false;
@@ -173,7 +178,7 @@ const coordinateTransform = new ParallelogramTransform(
     [mapSprite.width / 2, mapSprite.height / 2]
 );
 
-setInterval(getUserLocation, 100);
+getUserLocation();
 
 nodeText("Rosquinhas", { x: -474, y: 14 });
 nodeText("Campo", { x: 533.390219080226, y: -579.5920817634556 });
