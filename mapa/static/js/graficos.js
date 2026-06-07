@@ -1,0 +1,167 @@
+export let map;
+export let mapContainer;
+
+let color;
+let textColor;
+let mapImagePath;
+let pinImagePath;
+
+let pinoSprite;
+let textContainer;
+let gl;
+let mapSprite;
+let mapTextures;
+
+let minZoom;
+let maxZoom;
+let zoomStep;
+
+let updating = false;
+export let zoom = 1;
+export let scaleFactor = 1;
+
+export let imageSize;
+
+export function setContext(context) {
+    color = context.blank_color;
+    textColor = context.text_color;
+
+    minZoom = context.zoom_range[0];
+    maxZoom = context.zoom_range[1];
+    zoomStep = context.scroll_ratio;
+
+    mapImagePath = context.map_image;
+    pinImagePath = context.pin_image;
+}
+
+export function setPinPosition(x, y) {
+    pinoSprite.x = x;
+    pinoSprite.y = y;
+}
+
+export function showPin(show) {
+    pinoSprite.visible = show;
+}
+
+export async function main() {
+    const app = new PIXI.Application();
+    await app.init({ 
+        resizeTo: window,
+        backgroundColor: color,
+        resolution: window.devicePixelRatio || 1,
+    });
+    
+    gl = app.renderer.gl;
+    map = document.getElementById("map");
+    map.appendChild(app.canvas);
+    
+    mapContainer = new PIXI.Container();
+    app.stage.addChild(mapContainer);
+    
+    mapContainer.x = app.screen.width / 2;
+    mapContainer.y = app.screen.height / 2;
+    
+    const texture = await PIXI.Assets.load(mapImagePath);
+    mapSprite = PIXI.Sprite.from(texture);
+    mapSprite.anchor.set(0.5); 
+    mapSprite.x = 0;
+    mapSprite.y = 0;
+    mapContainer.addChild(mapSprite);
+    imageSize = { width: mapSprite.width, height: mapSprite.height };
+    
+    const pinoTexture = await PIXI.Assets.load(pinImagePath);
+    pinoSprite = PIXI.Sprite.from(pinoTexture);
+    pinoSprite.anchor.set(0.5, 1);
+    pinoSprite.visible = false;
+    pinoSprite.x = 0;
+    pinoSprite.y = 0;
+    mapContainer.addChild(pinoSprite);
+    
+    textContainer = new PIXI.Container();
+    mapContainer.addChild(textContainer);
+
+    loadMapScales();
+}
+
+export function nodeText(text, configuration) {
+    const nodeLabel = new PIXI.Text({
+        text: text,
+        style: {
+            fontFamily: 'Arial',
+            fontSize: 28,
+            fill: textColor,
+            align: 'center',
+            stroke: { color: "white", width: 3 }
+        }
+    });
+    nodeLabel.anchor.set(0.5, 1);
+    nodeLabel.x = configuration.x;
+    nodeLabel.y = configuration.y;
+    textContainer.addChild(nodeLabel);
+}
+
+function ceilPowerOf2(x) { return x <= 0 ? 1 : Math.pow(2, Math.ceil(Math.log2(x))); }
+function floorPowerOf2(x) { return x <= 0 ? 1 : Math.pow(2, Math.floor(Math.log2(x))); }
+
+async function loadMapScales() {
+    const svgText = await fetch(mapImagePath).then(r => r.text());
+    const mapBlob = new Blob([svgText], { type: "image/svg+xml" });
+    const mapUrl = URL.createObjectURL(mapBlob);
+    const img = new Image();
+
+    mapTextures = {};
+
+    img.onload = () => {
+        for (const scale of [0.125, 0.25, 0.5, 1, 2, 4, 8]) {
+            const longestSide = Math.max(img.width, img.height);
+            const maxRenderZoom = gl.getParameter(gl.MAX_TEXTURE_SIZE) / longestSide;
+            let currentFactor = Math.min(floorPowerOf2(maxRenderZoom), Math.max(minZoom, scale * window.devicePixelRatio));
+            const canvas = document.createElement("canvas");
+            canvas.width = img.width * currentFactor;
+            canvas.height = img.height * currentFactor;
+
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+            mapTextures[scale] = PIXI.Texture.from(canvas);
+        };
+    };
+
+    img.src = mapUrl;
+}
+
+async function updateMapTexture() {
+    const longestSide = Math.max(imageSize.width, imageSize.height);
+    const maxRenderZoom = gl.getParameter(gl.MAX_TEXTURE_SIZE) / longestSide;
+    let currentFactor = Math.min(ceilPowerOf2(maxRenderZoom), Math.max(minZoom, zoom * window.devicePixelRatio));
+
+    mapSprite.texture = mapTextures[ceilPowerOf2(currentFactor)] || mapSprite.texture;
+    mapSprite.scale.set(imageSize.width / mapSprite.texture.width);
+};
+
+export async function updateMap() {
+    if (updating) return;
+    updating = true;
+    await updateMapTexture();
+    updating = false;
+}
+
+export function setPosition(x, y) {
+    mapContainer.x = x;
+    mapContainer.y = y;
+}
+export function setZoom(z) {
+    zoom = z;
+    mapContainer.scale.set(z);
+    pinoSprite.scale.set(1 / z / 7.5);
+    for (const child of textContainer.children) {
+        child.scale.set(1 / z / 2);
+    }
+}
+export function setRotation(r) {
+    mapContainer.rotation = r;
+    pinoSprite.rotation = -r;
+    for (const child of textContainer.children) {
+        child.rotation = -r;
+    }
+}
