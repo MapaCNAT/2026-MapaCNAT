@@ -1,1 +1,13 @@
+# CDU001. Uso do Mapa
 
+- **Ator principal**: Usuário qualquer
+- **Atores secundários**: Django/Banco de Dados
+- **Resumo**: O Usuário localiza um local pelo mapa
+- **Pré-condição**: Usuário está na tela inicial da aplicação
+- **Pós-Condição**: Usuário é apresentado um banner informativo do local
+
+## Fluxo de Exceção (Local Não Encontrado na Busca)
+1. [Ator: Usuário] Digita na barra de pesquisa o nome de um local que não existe ou com erros graves de grafia e confirma a busca.
+2. [Ator: Django/Sistema] Faz a varredura no Banco de Dados e constata que nenhum registro foi encontrado para o termo digitado.
+3. [Ator: Django/Sistema] O sistema impede a abertura de qualquer banner, mantém o mapa na posição atual e exibe um alerta informando que o local não foi encontrado.
+4. [Ator: Django/Sistema] Sugere visualmente que o usuário verifique a escrita do termo ou tente buscar por palavras-chave diferentes.
