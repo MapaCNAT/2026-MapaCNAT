@@ -1,0 +1,13 @@
+# CDU001. Uso do Mapa
+
+- **Ator principal**: Usuário qualquer
+- **Atores secundários**: Sistema (Backend em Django + Banco de Dados).
+- **Resumo**: O Usuário localiza um ponto de interesse no mapa (por clique ou pesquisa) e o sistema exibe os detalhes em um banner.
+- **Pré-condição**: O Usuário está na tela inicial da aplicação onde o mapa é renderizado.
+- **Pós-Condição**: O Usuário visualiza na tela um banner informativo com os dados do local.
+
+## Fluxo Alternativo I (Pesquisa Direta pelo Nome do Lugar)
+1.[Ator: Usuário] Toca na barra de pesquisa de locais disponível na tela inicial.
+2.[Ator: Usuário] Digita o nome exato do lugar que deseja encontrar e confirma a busca (aperta Enter ou no ícone de lupa).
+3.[Ator: Django/Sistema] Recebe o texto digitado e realiza uma busca textual no Banco de Dados pelo nome correspondente.
+4.[Ator: Django/Sistema] Centraliza o mapa na localização encontrada e expõe o banner informativo com dados, imagens e descrições para o usuário.
