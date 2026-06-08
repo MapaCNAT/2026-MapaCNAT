@@ -8,15 +8,10 @@
 
 ## Fluxo Principal
 
-1. Usuário aperta no lugar da tela em que está o local que deseja conhecer
+1. Dado que o usuário está na tela inicial da aplicação visualizando a tela do mapa.
+2. Quando o usuário aperta no lugar da tela em que está o local que deseja conhecer.
+3. Então o sistema (via Django) deve registrar o local do aperto, obtendo as coordenadas exatas do ponto de toque no espaço da projeção do mapa.
+4. E o backend deve buscar no banco de dados as informações, imagens e descrições do local selecionado correspondente a essas coordenadas.
+5. E o sistema deve expor e renderizar visualmente os dados de informações, imagens e descrições para o usuário através de um banner informativo.
 
 ![tela do mapa](./cenario-uso-do-mapa.png)
-
-
-2. Sistema
-   1. Registrar o local de aperto relativo ao mapa
-      - Django obtêm as coordenadas do ponto de toque tanto no espaço da projeção.
-   2. Busca as informações do local selecionado
-      - O django
-   3. Expôe os dados de informações, imagens e descrições para o usuário visualmente | 
-
