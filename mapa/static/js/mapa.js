@@ -16,6 +16,6 @@ fetch('../static/json/config.json')
 
         Localizacao.UserLocation();
     });
-    
+    Graficos.loadMapScales();
 })
 .catch(error => console.error('Falha ao carregar JSON:', error));

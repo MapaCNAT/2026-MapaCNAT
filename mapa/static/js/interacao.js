@@ -142,4 +142,30 @@ export function addListeners(map) {
     map.addEventListener("touchstart", Touch.begin, { passive: false });
     map.addEventListener("touchmove", Touch.step, { passive: false });
     map.addEventListener("touchend", Touch.end);
+
+    const optionsBtn = document.getElementById('options');
+    const closeBtn = document.getElementById('close-sidebar');
+    const sidebar = document.getElementById('sidebar');
+    const backdrop = document.getElementById('sidebar-backdrop');
+
+    const orientationBtn = document.getElementById('orientation');
+
+    optionsBtn.addEventListener('click', () => {
+        sidebar.classList.add('active');
+        backdrop.classList.add('active');
+    });
+
+    const closeMenu = () => {
+        sidebar.classList.remove('active');
+        backdrop.classList.remove('active');
+    };
+
+    const alignMap = () => {
+        Graficos.smoothRotation(0);
+    }
+
+    closeBtn.addEventListener('click', closeMenu);
+    backdrop.addEventListener('click', closeMenu);
+
+    orientationBtn.addEventListener('click', alignMap);
 }

@@ -16,6 +16,7 @@ let minZoom;
 let maxZoom;
 let zoomStep;
 
+let smoothTransform = false;
 let updating = false;
 export let zoom = 1;
 export let scaleFactor = 1;
@@ -79,8 +80,6 @@ export async function main() {
     
     textContainer = new PIXI.Container();
     mapContainer.addChild(textContainer);
-
-    loadMapScales();
 }
 
 export function nodeText(text, configuration) {
@@ -103,7 +102,7 @@ export function nodeText(text, configuration) {
 function ceilPowerOf2(x) { return x <= 0 ? 1 : Math.pow(2, Math.ceil(Math.log2(x))); }
 function floorPowerOf2(x) { return x <= 0 ? 1 : Math.pow(2, Math.floor(Math.log2(x))); }
 
-async function loadMapScales() {
+export async function loadMapScales() {
     const svgText = await fetch(mapImagePath).then(r => r.text());
     const mapBlob = new Blob([svgText], { type: "image/svg+xml" });
     const mapUrl = URL.createObjectURL(mapBlob);
@@ -146,11 +145,18 @@ export async function updateMap() {
     updating = false;
 }
 
-export function setPosition(x, y) {
+function Position(x, y) {
     mapContainer.x = x;
     mapContainer.y = y;
 }
-export function setZoom(z) {
+
+export function setPosition(x, y) {
+    if (!smoothTransform) {
+        Position(x, y);
+    }
+}
+
+function Zoom(z) {
     zoom = z;
     mapContainer.scale.set(z);
     pinoSprite.scale.set(1 / z / 7.5);
@@ -158,10 +164,42 @@ export function setZoom(z) {
         child.scale.set(1 / z / 2);
     }
 }
-export function setRotation(r) {
+
+export function setZoom(z) {
+    if (!smoothTransform) {
+        Zoom(z);
+    }
+}
+
+function Rotation(r) {
     mapContainer.rotation = r;
     pinoSprite.rotation = -r;
     for (const child of textContainer.children) {
         child.rotation = -r;
+    }
+}
+
+export function setRotation(r) {
+    if (!smoothTransform) {
+        Rotation(r);
+    }
+}
+
+export function smoothRotation(r) {
+    if (!smoothTransform) {
+        smoothTransform = true;
+
+        let time = 0;
+        const initialRotation = mapContainer.rotation;
+        const transform = setInterval(() => {
+            time += 1000 / 60;
+            let t = Math.min(time / 500, 1);
+            let interpolation = t * t * (3 - 2 * t);
+            Rotation(initialRotation + (r - initialRotation) * interpolation);
+            if (time >= 500) {
+                smoothTransform = false;
+                clearInterval(transform);
+            }
+        }, 1000 / 60);
     }
 }
