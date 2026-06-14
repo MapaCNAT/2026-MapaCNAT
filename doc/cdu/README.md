@@ -19,4 +19,7 @@
 3. [CDU 03 - Exploração do Mapa](cdu_03/README.md)
 4. [CDU 04 - Uso do Mapa](cdu_04/README.md)
 5. [CDU 05 - Uso de Sugestões do Banner](cdu_05/README.md)
-6. [CDU 06 - Exploração do Mapa](cdu_06/README.md)
+6. [CDU 06 - Receber localização](cdu_06/README.md)
+7. [CDU 07 - Login](cdu_07/README.md)
+8. [CDU 08 - Signup](cdu_08/README.md)
+9. [CDU 09 - Relatar Feedback](cdu_09/README.md)
