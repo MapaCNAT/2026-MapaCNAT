@@ -2,7 +2,7 @@
 
 - **Ator principal**: Usuário qualquer
 - **Atores secundários**: Nenhum
-- **Resumo**: O usuário recebe uma localização para dentro do aplicativo
+- **Resumo**: O usuário recebe uma localização redirecionando para o aplicativo
 - **Pré-condição**: Usuário acessou um redirecionamento do aplicativo
 - **Pós-Condição**: Usuário tem o mapa atualizado
 

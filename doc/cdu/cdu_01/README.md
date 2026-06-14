@@ -32,7 +32,7 @@
 | | 3.2 - Busca os dados do lugar | 
 | | 3.3 - Expôe os dados de informações, imagens e descrições para o usuário visualmente |
 
-## Fluxo de Exceção - Se der erro
+## Fluxo de Exceção - Local Não Encontrado na Busca
 | Ações do ator | Ações do sistema |
 | :-----------------: |:-----------------: | 
 | 1 - Digita um local que não existe | | 
