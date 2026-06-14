@@ -1,0 +1,24 @@
+@startuml
+
+left to right direction
+
+:Usuario: --> (usar_mapa)
+:Usuario: --> (explorar_mapa)
+:Usuario: --> (receber_lugar)
+:Usuario: --> (compartilhar_lugar)
+:Usuario: --> (sugestao_banner)
+:Usuario: --> (pinar_lugar)
+:Usuario: --> (login)
+:Usuario: --> (signup)
+:Usuario: --> (feedback)
+"Usar Mapa" as (usar_mapa)
+"Explorar Mapa" as (explorar_mapa)
+"Receber Localização" as (receber_lugar)
+"Compartilhar Localização" as (compartilhar_lugar)
+"Usar Sugestão de Banner" as (sugestao_banner)
+"Pinar Localização" as (pinar_lugar)
+"Autenticar Usuário" as (login)
+"Cadastrar Usuário" as (signup)
+"Relatar Feedback" as (feedback)
+
+@enduml
