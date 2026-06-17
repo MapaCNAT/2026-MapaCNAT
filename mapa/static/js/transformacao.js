@@ -1,5 +1,3 @@
-
-
 export class MatrixTransform {
     constructor(A1, B1, C1, A2, B2, C2) {
         const M1 = [
@@ -70,7 +68,7 @@ export function getNormalizedCoordinates(screenX, screenY) {
     };
 }
 
-function rotatePoint(x, y, angle) {
+export function rotatePoint(x, y, angle) {
     const cosA = Math.cos(angle);
     const sinA = Math.sin(angle);
     return {
@@ -79,8 +77,8 @@ function rotatePoint(x, y, angle) {
     };
 }
 
-function midpoint(a, b) { return { x: (a.clientX + b.clientX) / 2, y: (a.clientY + b.clientY) / 2 }; }
+export function midpoint(a, b) { return { x: (a.clientX + b.clientX) / 2, y: (a.clientY + b.clientY) / 2 }; }
 
-function distance(a, b) { return Math.hypot(b.clientX - a.clientX, b.clientY - a.clientY); }
+export function distance(a, b) { return Math.hypot(b.clientX - a.clientX, b.clientY - a.clientY); }
 
-function angle(a, b) { return Math.atan2(b.clientY - a.clientY, b.clientX - a.clientX); }
+export function angle(a, b) { return Math.atan2(b.clientY - a.clientY, b.clientX - a.clientX); }

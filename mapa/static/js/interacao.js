@@ -1,4 +1,5 @@
 import * as Graficos from "./graficos.js";
+import * as Transformacao from "./transformacao.js";
 
 let clicking = false;
 let touching = false;
@@ -41,11 +42,11 @@ class Touch {
         if (e.touches.length == 2) {
             const a = e.touches[0];
             const b = e.touches[1];
-            const mid = midpoint(a, b);
+            const mid = Transformacao.midpoint(a, b);
             startMidX = mid.x;
             startMidY = mid.y;
-            startDistance = distance(a, b);
-            startAngle = angle(a, b);
+            startDistance = Transformacao.distance(a, b);
+            startAngle = Transformacao.angle(a, b);
             startZoom = zoom;
             startRotation = Graficos.mapContainer.rotation;
             startOffsetX = (Graficos.mapContainer.x - startMidX) / zoom;
@@ -65,9 +66,9 @@ class Touch {
         if (e.touches.length == 2) {
             const a = e.touches[0];
             const b = e.touches[1];
-            const mid = midpoint(a, b);
-            const currentDistance = distance(a, b);
-            const currentAngle = angle(a, b);
+            const mid = Transformacao.midpoint(a, b);
+            const currentDistance = Transformacao.distance(a, b);
+            const currentAngle = Transformacao.angle(a, b);
 
             zoom = Math.min(Math.max(startZoom * (currentDistance / startDistance), minZoom), maxZoom);
             Graficos.setZoom(zoom);
