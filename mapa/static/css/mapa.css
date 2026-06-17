@@ -119,6 +119,9 @@ header {
     margin: 0;
     font-family: var(--font-family, sans-serif);
 }
+.sidebar-header h3 a {
+    color: #333;
+}
 
 #close-sidebar {
     background: none;

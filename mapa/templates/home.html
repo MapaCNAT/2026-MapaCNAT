@@ -1,9 +1,37 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
-{% block title %}MapaCNAT | Página Inicial{% endblock %}
+{% load static %}
+
+{% block title %}MapaCNAT{% endblock %}
+
+{% block style %}<link rel="stylesheet" href="{% static 'css/home.css' %}">{% endblock %}
 
 {% block content %}
-    <h1>Página inicial</h1>
-    <i>página temporária</i><br>
-    <a href="{% url 'mapa' %}">Mapa</a>
+<header>
+    <a href="{% url 'home' %}">
+        <img src="{% static 'img/logo.png' %}" width="300" alt="Logo do Mapa CNAT">
+    </a>
+    <div id="autenticar">
+        <button class="botao">
+            <i class="fa-solid fa-user"></i>
+            <a href="{% url 'login' %}">Login</a>
+        </button>
+    </div>
+</header>
+<main>
+    <h1>
+        Explore o Campus com facilidade.
+    </h1>
+    <p>
+        Com a ferramenta do Mapa CNAT, navegar o Campus se torna fácil e simples.
+    </p>
+    <button onclick="window.location.href = mapa;" class="botao">
+        <i class="fa-solid fa-map"></i>
+        <a href="{% url 'mapa' %}">Explorar</a>
+    </button>
+</main>
+<script>
+    let mapa = "{% url 'mapa' %}";
+    document.body.style.backgroundImage = "radial-gradient(circle at 100px 250px, #fff 0, rgba(255, 255, 255, .9) 300px, rgba(255, 255, 255, 0) 600px), url({% static 'img/cnat/bosque.png' %})";
+</script>
 {% endblock %}

@@ -1,5 +1,8 @@
 :root {
     --body-margin: 1em;
+    --blue-main: #315882;
+    --green-main: #50B846;
+    --dark-green-main: #23791b;
     --font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 * {

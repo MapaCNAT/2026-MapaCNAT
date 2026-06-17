@@ -1,0 +1,63 @@
+body {
+    min-height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+header {
+    display: flex;
+}
+header img {
+    margin: 3em;
+}
+header #autenticar {
+    margin-left: auto;
+    margin-right: 3em;
+    margin-top: 3em;
+}
+header button {
+    background-color: rgba(0, 0, 0, 0);
+    border: 2px solid var(--dark-green-main);
+    border-radius: 10px;
+    font-size: 1.2em;
+    padding: .5em 2em;
+}
+header a, header i {
+    color: var(--dark-green-main);
+}
+main button {
+    border: none;
+    border-radius: 10px;
+    padding: 1em 3em;
+    font-size: 1.5em;
+    background-color: var(--green-main);
+    margin: 50px;
+}
+.botao {
+    display: flex;
+    
+}
+.botao a {
+    display: inline;
+    text-decoration: none;
+    font-family: var(--font-family);
+}
+.botao:hover {
+    cursor: pointer;
+}
+main a {
+    margin: 0 1em;
+}
+main button a, main button i {
+    color: white;
+}
+main h1 {
+    font-size: 2.5em;
+}
+main h1, main p {
+    width: 400px;
+    margin: 25px 50px;
+    color: var(--blue-main);
+    font-family: var(--font-family);
+}

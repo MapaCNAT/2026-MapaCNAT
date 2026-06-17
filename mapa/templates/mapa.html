@@ -1,48 +1,39 @@
-<!-- {% load static %} -->
+{% extends 'base.html' %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MapaCNAT | Explorar</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/global.css' %}">
-    <link rel="stylesheet" href="{% static 'css/mapa.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
-<body>
-    <header>
-        <form id="search" class="padding" action="" method="get" role="search">
-            <label for="search-field"><i class="fa-solid fa-magnifying-glass"></i></label>
-            <input type="search" id="search-field" name="q" placeholder="Pesquisar local..." required>
-        </form>
-        <button class="padding" id="options"><i class="fa-solid fa-bars"></i></button>
-    </header>
-    
-    <main>
-        <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
+{% load static %}
 
-        <div id="sidebar" class="sidebar">
-            <div class="sidebar-header">
-                <h3><a href="{% url 'home' %}">Menu</a></h3>
-                <button id="close-sidebar" aria-label="Close menu">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-            </div>
-            <nav class="sidebar-links">
-                <a href="{% url 'mapa' %}"><i class="fa-solid fa-layer-group"></i> Relatar Feedback</a>
-            </nav>
+{% block title %}MapaCNAT | Explorar{% endblock %}
+
+{% block style %}<link rel="stylesheet" href="{% static 'css/mapa.css' %}">{% endblock %}
+
+{% block content %}
+<header>
+    <form id="search" class="padding" action="" method="get" role="search">
+        <label for="search-field"><i class="fa-solid fa-magnifying-glass"></i></label>
+        <input type="search" id="search-field" name="q" placeholder="Pesquisar local..." required>
+    </form>
+    <button class="padding" id="options"><i class="fa-solid fa-bars"></i></button>
+</header>
+
+<main>
+    <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
+
+    <div id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <h3><a href="{% url 'home' %}">Menu</a></h3>
+            <button id="close-sidebar" aria-label="Close menu">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
         </div>
+        <nav class="sidebar-links">
+            <a href="{% url 'mapa' %}"><i class="fa-solid fa-comment"></i> Relatar Feedback</a>
+        </nav>
+    </div>
 
-        <div id="map"></div>
-        <script src="https://pixijs.download/release/pixi.min.js"></script>
-        <script type="module" src="{% static 'js/mapa.js' %}"></script>
-    </main>
-    <footer>
-        <button class="padding" id="orientation"><i class="fa-solid fa-compass"></i></button>
-    </footer>
-</body>
-</html>
+    <div id="map"></div>
+    <script src="https://pixijs.download/release/pixi.min.js"></script>
+    <script type="module" src="{% static 'js/mapa.js' %}"></script>
+
+    <button class="padding" id="orientation"><i class="fa-solid fa-compass"></i></button>
+</main>
+{% endblock %}
