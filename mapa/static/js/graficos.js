@@ -112,6 +112,8 @@ export async function loadMapScales() {
 
     img.onload = () => {
         for (const scale of [0.125, 0.25, 0.5, 1, 2, 4, 8]) {
+            let key = `image-${scale}`;
+            if (!localStorage.getItem(key)) {continue};
             const longestSide = Math.max(img.width, img.height);
             const maxRenderZoom = gl.getParameter(gl.MAX_TEXTURE_SIZE) / longestSide;
             let currentFactor = Math.min(floorPowerOf2(maxRenderZoom), Math.max(minZoom, scale * window.devicePixelRatio));
@@ -122,7 +124,7 @@ export async function loadMapScales() {
             const ctx = canvas.getContext("2d");
             ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-            mapTextures[scale] = PIXI.Texture.from(canvas);
+            localStorage.setItem(key, PIXI.Texture.from(canvas));
         };
     };
 
@@ -134,7 +136,8 @@ async function updateMapTexture() {
     const maxRenderZoom = gl.getParameter(gl.MAX_TEXTURE_SIZE) / longestSide;
     let currentFactor = Math.min(ceilPowerOf2(maxRenderZoom), Math.max(minZoom, zoom * window.devicePixelRatio));
 
-    mapSprite.texture = mapTextures[ceilPowerOf2(currentFactor)] || mapSprite.texture;
+    let scale = ceilPowerOf2(currentFactor);
+    mapSprite.texture = localStorage.getItem(`image-${scale}`) || mapSprite.texture;
     mapSprite.scale.set(imageSize.width / mapSprite.texture.width);
 };
 
