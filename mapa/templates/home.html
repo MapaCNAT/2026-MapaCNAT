@@ -32,6 +32,14 @@
 </main>
 <script>
     let mapa = "{% url 'mapa' %}";
-    document.body.style.backgroundImage = "radial-gradient(circle at 100px 250px, #fff 0, rgba(255, 255, 255, .9) 300px, rgba(255, 255, 255, 0) 600px), url({% static 'img/cnat/bosque.png' %})";
+    function setHomeBackground() {
+        if (window.visualViewport.width <= 768) {
+            document.body.style.backgroundImage = "linear-gradient(to bottom, #fff 0, rgba(255, 255, 255, .9) 70px, rgba(255, 255, 255, 0) 600px), url({% static 'img/cnat/bosque.png' %})";
+        } else {
+            document.body.style.backgroundImage = "radial-gradient(circle at 100px 250px, #fff 0, rgba(255, 255, 255, .9) 300px, rgba(255, 255, 255, 0) 600px), url({% static 'img/cnat/bosque.png' %})";
+        }
+    }
+    setHomeBackground();
+    window.addEventListener("resize", setHomeBackground);
 </script>
 {% endblock %}

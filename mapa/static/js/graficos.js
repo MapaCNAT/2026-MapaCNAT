@@ -1,3 +1,5 @@
+import * as Transformacao from "./transformacao.js";
+
 export let map;
 export let mapContainer;
 
@@ -194,14 +196,32 @@ export function smoothRotation(r) {
 
         let time = 0;
         const initialRotation = mapContainer.rotation;
+
+        let diff = r - initialRotation;
+
+        diff = ((diff + Math.PI) % (2 * Math.PI)) - Math.PI;
+        if (diff < -Math.PI) diff += 2 * Math.PI;
+
+        const shortestTargetRotation = initialRotation + diff;
+
+        let containerPos = {x: mapContainer.x, y: mapContainer.y};
+
         const transform = setInterval(() => {
             time += 1000 / 60;
             let t = Math.min(time / 500, 1);
             let interpolation = t * t * (3 - 2 * t);
-            Rotation(initialRotation + (r - initialRotation) * interpolation);
+
+            Rotation(initialRotation + (shortestTargetRotation - initialRotation) * interpolation);
+            let center = {x: window.visualViewport.width / 2, y: window.visualViewport.height / 2}
+            let rotatedCenter = Transformacao.rotatePoint(center.x, center.y, mapContainer.rotation);
+            let pivo = Transformacao.rotatePoint(containerPos.x - center.x, containerPos.y - center.y, mapContainer.rotation - initialRotation);
+            pivo = {x: pivo.x + center.x, y: pivo.y + center.y};
+            Position(pivo.x, pivo.y);
             if (time >= 500) {
                 smoothTransform = false;
                 clearInterval(transform);
+
+                mapContainer.rotation = ((mapContainer.rotation + Math.PI) % (2 * Math.PI)) - Math.PI;
             }
         }, 1000 / 60);
     }

@@ -72,9 +72,10 @@ class Touch {
 
             zoom = Math.min(Math.max(startZoom * (currentDistance / startDistance), minZoom), maxZoom);
             Graficos.setZoom(zoom);
+            Graficos.updateMap();
 
             const deltaAngle = currentAngle - startAngle;
-            Graficos.setRotation(startRotation + deltaAngle);
+            Graficos.setRotation((startRotation + deltaAngle) % (2 * Math.PI));
             
             const rotated = Transformacao.rotatePoint(startOffsetX, startOffsetY, deltaAngle);
             Graficos.setPosition(
@@ -86,7 +87,6 @@ class Touch {
 
     static end(e) {
         touching = false;
-        Graficos.updateMap();
     }
 }
 
