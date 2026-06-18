@@ -28,7 +28,8 @@ canvas {
     height: 50px; 
     box-sizing: border-box; 
     
-    padding: 0 15px; 
+    padding: 0 15px;
+    border-radius: 25px;
 }
 
 #search input[type="search"] {
@@ -56,6 +57,8 @@ canvas {
     border: none;
     cursor: pointer;
     background-color: white;
+
+    border-radius: 25px;
 }
 
 header {
@@ -177,4 +180,6 @@ header {
     border: none;
     cursor: pointer;
     background-color: white;
+
+    border-radius: 25px;
 }
