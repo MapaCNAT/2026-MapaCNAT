@@ -76,7 +76,7 @@ class Touch {
             const deltaAngle = currentAngle - startAngle;
             Graficos.setRotation(startRotation + deltaAngle);
             
-            const rotated = rotatePoint(startOffsetX, startOffsetY, deltaAngle);
+            const rotated = Transformacao.rotatePoint(startOffsetX, startOffsetY, deltaAngle);
             Graficos.setPosition(
                 mid.x + rotated.x * zoom,
                 mid.y + rotated.y * zoom
