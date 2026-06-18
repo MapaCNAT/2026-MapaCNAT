@@ -1,5 +1,5 @@
 {
-    "blank_color": "#202020",
+    "blank_color": "#333",
     "text_color": "#202020",
     "scroll_ratio": 1.1,
     "zoom_range": [0.0125, 4],
